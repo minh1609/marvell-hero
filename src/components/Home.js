@@ -1,43 +1,68 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Row, Col, Alert, Button } from "react-bootstrap";
 
 import { getHeros } from "actions/index";
 
 class Home extends Component {
     componentDidMount() {
         this.props.getHeros();
-        console.log(this.props);
     }
 
-    componentDidUpdate() {
-        console.log(this.props);
+    renderNumber = () => {
+        if (this.props.heros) {
+            return (
+                <Alert variant="primary">
+                    {this.props.heros.length} of total{" "}
+                    {this.props.totalNumberOfHero}
+                </Alert>
+            );
+        }
+    };
+
+    renderLoadMoreButton() {
+        if (
+            this.props.heros &&
+            this.props.heros.length < this.props.totalNumberOfHero
+        ) {
+            return <Button variant="light">Get More ... </Button>;
+        }
     }
 
-    renderHeroList() {
+    renderHeroList = () => {
         if (this.props.heros) {
             return this.props.heros.map(hero => (
-                <div>
+                <Col md={4} lg={3} sm={6} key={hero.id} className="hero-box">
+                    <img
+                        src={
+                            hero.thumbnail.path +
+                            "/standard_large." +
+                            hero.thumbnail.extension
+                        }
+                        alt="hero"
+                    />
                     <div>{hero.name}</div>
-                </div>
+                </Col>
             ));
         } else {
             return <div>Loading ...</div>;
         }
-    }
+    };
 
     render() {
         return (
-            <div>
-                {this.renderHeroList()}
-                Heoo
-            </div>
+            <React.Fragment>
+                {this.renderNumber()}
+                <Row>{this.renderHeroList()}</Row>
+                {this.renderLoadMoreButton()}
+            </React.Fragment>
         );
     }
 }
 
 const mapStateToProps = state => ({
     heros: state.heros.results,
-    numberOfHero: state.heros.total
+    totalNumberOfHero: state.heros.total
 });
 
 const mapDispatchToProps = { getHeros };
