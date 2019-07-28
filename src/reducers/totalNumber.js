@@ -1,4 +1,4 @@
-export default (state = {}, action) => {
+export default (state = 0, action) => {
     switch (action.type) {
         case "GET_HEROS":
             return action.payload.total;

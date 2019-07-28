@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Alert, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { getHeros } from "actions/index";
 
@@ -25,14 +26,27 @@ class Home extends Component {
             this.props.heros &&
             this.props.heros.length < this.props.totalNumberOfHero
         ) {
-            return <Button variant="light">Get More ... </Button>;
+            return (
+                <Button
+                    variant="light"
+                    onClick={() => this.props.getHeros(this.props.heros.length)}
+                >
+                    Get More ...{" "}
+                </Button>
+            );
         }
     }
 
     renderHeroList = () => {
         if (this.props.heros) {
             return this.props.heros.map(hero => (
-                <Col md={4} lg={3} sm={6} key={hero.id} className="hero-box">
+                <Col
+                    md={4}
+                    lg={3}
+                    sm={6}
+                    key={hero.id}
+                    className="hero-box my-5"
+                >
                     <img
                         src={
                             hero.thumbnail.path +
@@ -41,7 +55,12 @@ class Home extends Component {
                         }
                         alt="hero"
                     />
-                    <div>{hero.name}</div>
+                    <br />
+                    <Link to={`/hero/${hero.id}`}>
+                        <Button variant="outline-info" className="my-2">
+                            {hero.name}
+                        </Button>
+                    </Link>
                 </Col>
             ));
         } else {
@@ -52,8 +71,8 @@ class Home extends Component {
     render() {
         return (
             <React.Fragment>
-                {this.renderNumber()}
                 <Row>{this.renderHeroList()}</Row>
+                {this.renderNumber()}
                 {this.renderLoadMoreButton()}
             </React.Fragment>
         );
@@ -61,8 +80,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-    heros: state.heros.results,
-    totalNumberOfHero: state.heros.total
+    heros: Object.values(state.heros),
+    totalNumberOfHero: state.totalNumberOfHero
 });
 
 const mapDispatchToProps = { getHeros };
