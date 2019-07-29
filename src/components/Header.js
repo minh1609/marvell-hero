@@ -12,8 +12,6 @@ export class Header extends Component {
                 </Link>
                 <Nav className="mr-auto">
                     <Nav.Link to="/">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
             </Navbar>
         );

@@ -3,7 +3,7 @@ import { InputGroup, FormControl, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../api";
-
+//TODO: add redux to this component, add action
 export class SearchBar extends Component {
     state = {
         totalSuggestions: 0,
@@ -13,8 +13,16 @@ export class SearchBar extends Component {
 
     renderSuggestion = () => {
         return this.state.suggestion.map(hero => (
-            <Link to={`/hero/${hero.id}`}>
-                <div>{hero.name}</div>
+            <Link
+                onClick={() => {
+                    this.setState({ suggestion: [], formValue: "" });
+                }}
+                to={`/hero/${hero.id}`}
+                key={hero.id}
+            >
+                <Button variant="outline-dark" className="m-2">
+                    {hero.name}
+                </Button>
             </Link>
         ));
     };
@@ -22,8 +30,8 @@ export class SearchBar extends Component {
     handleInputChange = async event => {
         this.setState({ formValue: event.target.value });
 
-        //Give suggestion if enter more than 2 character
-        if (event.target.value.length >= 2) {
+        //Give suggestion if enter value is 3 character
+        if (event.target.value.length === 3) {
             const res = await axios.get("/characters", {
                 params: { nameStartsWith: event.target.value }
             });
