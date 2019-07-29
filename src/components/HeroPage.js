@@ -8,6 +8,11 @@ export class HeroPage extends Component {
     componentDidMount() {
         this.props.getHero(this.props.match.params.id);
     }
+
+    componentDidUpdate() {
+        this.props.getHero(this.props.match.params.id);
+    }
+
     render() {
         if (this.props.hero) {
             let hero = this.props.hero;
