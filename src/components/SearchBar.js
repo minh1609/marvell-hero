@@ -7,7 +7,8 @@ import axios from "../api";
 export class SearchBar extends Component {
     state = {
         totalSuggestions: 0,
-        suggestion: [],
+        baseSugestion: [], //only change when fetch new data
+        suggestion: [], //change when fetch new data or filter from baseSugestion
         formValue: ""
     };
 
@@ -20,7 +21,7 @@ export class SearchBar extends Component {
                 to={`/hero/${hero.id}`}
                 key={hero.id}
             >
-                <Button variant="outline-dark" className="m-2">
+                <Button variant="outline-dark" className="m-2 ">
                     {hero.name}
                 </Button>
             </Link>
@@ -29,21 +30,34 @@ export class SearchBar extends Component {
 
     handleInputChange = async event => {
         this.setState({ formValue: event.target.value });
+        let formValue = event.target.value;
 
-        //Give suggestion if enter value is 3 character
-        if (event.target.value.length === 3) {
+        // no-limit api solution: every time user modify input
+        //, browser make a request with that input, get back hero list has name start with that input) ==> too much api call from browser
+
+        //THIS IS LIMIT API CALL SOLUTION,
+        //Only fetch data if form value is 3 character
+        if (formValue.length === 3) {
             const res = await axios.get("/characters", {
-                params: { nameStartsWith: event.target.value }
+                params: { nameStartsWith: event.target.value, limit: 50 }
             });
             this.setState({
-                suggestion: res.data.data.results,
-                totalSuggestions: res.data.data.total
+                baseSugestion: res.data.data.results,
+                totalSuggestions: res.data.data.total,
+                suggestion: res.data.data.results
             });
-            console.log(res.data.data);
+        } else if (formValue.length > 3) {
+            let newSuggestion = this.state.baseSugestion.filter(data =>
+                data.name.toLowerCase().includes(formValue.toLowerCase())
+            );
 
-            //Remove all suggestion if enter == 0
-        } else if (event.target.value.length == 0) {
+            this.setState({ suggestion: newSuggestion });
+
+            //Remove all suggestion
+        } else if (formValue.length === 0) {
             this.setState({ suggestion: [] });
+
+            //More than 4 character, filter result from base suggestion
         }
     };
 
@@ -52,7 +66,7 @@ export class SearchBar extends Component {
             <div className="mb-5">
                 <InputGroup>
                     <FormControl
-                        placeholder="Find Your favourite Hero"
+                        placeholder="Find Your favourite Hero, enter more than 3 character"
                         aria-describedby="basic-addon2"
                         autoComplete="off"
                         value={this.state.formValue}
@@ -60,16 +74,22 @@ export class SearchBar extends Component {
                     />
                     <InputGroup.Append>
                         <Button
-                            variant="outline-danger"
+                            variant="danger"
                             onClick={() => {
-                                this.setState({ suggestion: [] });
+                                this.setState({
+                                    suggestion: [],
+                                    formValue: ""
+                                });
                             }}
                         >
                             Close Suggestion
                         </Button>
                     </InputGroup.Append>
                 </InputGroup>
-                <div className="mx-2">{this.renderSuggestion()}</div>
+
+                <div className="" style={{ textAlign: "left" }}>
+                    {this.renderSuggestion()}
+                </div>
             </div>
         );
     }

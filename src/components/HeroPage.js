@@ -3,14 +3,26 @@ import { connect } from "react-redux";
 
 import { getHero } from "../actions";
 import axios from "../api";
+import List from "./List";
 
 export class HeroPage extends Component {
-    componentDidMount() {
+    state = {
+        comics: {}
+    };
+
+    componentDidMount = async () => {
         this.props.getHero(this.props.match.params.id);
-    }
+        let comics = await axios.get(
+            `/characters/${this.props.match.params.id}/comics`
+        );
+        console.log(comics.data);
+        this.setState({ comics: comics.data.data });
+    };
 
     componentDidUpdate() {
-        this.props.getHero(this.props.match.params.id);
+        if (!this.props.hero) {
+            this.props.getHero(this.props.match.params.id);
+        }
     }
 
     render() {
@@ -25,9 +37,14 @@ export class HeroPage extends Component {
                             "/detail." +
                             hero.thumbnail.extension
                         }
+                        className="my-3"
                     />
-                    <h4>{hero.name}</h4>
+                    <h2>{hero.name}</h2>
                     <div>{hero.description}</div>
+                    <List
+                        name="Appear in comic"
+                        dataToRendered={this.state.comics}
+                    />
                 </div>
             );
         } else {
