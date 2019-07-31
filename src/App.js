@@ -7,8 +7,8 @@ import HeroPage from "./components/HeroPage";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import Infinity from "./components/InfinityWar";
-
 import history from "./history";
+import "./App.css";
 
 export class App extends Component {
     render() {

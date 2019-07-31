@@ -4,12 +4,11 @@ export class InfinityWar extends Component {
     avengers = [
         1009368, //ironman
         1009220, //captain america
-
         1009338 //hawkeye
     ];
 
     render() {
-        return <div>Infinity War</div>;
+        return <div>Infinity War under construction</div>;
     }
 }
 

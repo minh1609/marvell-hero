@@ -1,0 +1,12 @@
+h1 {
+    font-family: Avenger;
+}
+
+.font {
+    font-family: Avenger;
+}
+
+@font-face {
+    font-family: Avenger;
+    src: url(./font.ttf);
+}

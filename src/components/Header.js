@@ -6,7 +6,7 @@ export class Header extends Component {
     render() {
         return (
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-                <Link class="navbar-brand" to="/">
+                <Link class="navbar-brand font" to="/">
                     MARVEL
                 </Link>
                 <button
