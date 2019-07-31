@@ -52,7 +52,10 @@ export class HeroPage extends Component {
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-                                    <List />
+                                    <List
+                                        typeOfList="comics"
+                                        heroId={this.props.match.params.id}
+                                    />
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>

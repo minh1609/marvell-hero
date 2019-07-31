@@ -13,7 +13,6 @@ export class List extends Component {
             `/characters/${this.props.heroId}/${this.props.typeOfList}`
         );
         this.setState({ data: res.data.data });
-        console.log(res.data.data);
     };
 
     renderList = () => {
