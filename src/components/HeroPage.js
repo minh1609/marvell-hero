@@ -41,10 +41,7 @@ export class HeroPage extends Component {
                     />
                     <h2>{hero.name}</h2>
                     <div>{hero.description}</div>
-                    <List
-                        name="Appear in comic"
-                        dataToRendered={this.state.comics}
-                    />
+                    <List name=" comics" dataToRendered={this.state.comics} />
                 </div>
             );
         } else {

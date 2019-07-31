@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../api";
@@ -9,7 +9,8 @@ export class SearchBar extends Component {
         totalSuggestions: 0,
         baseSugestion: [], //only change when fetch new data
         suggestion: [], //change when fetch new data or filter from baseSugestion
-        formValue: ""
+        formValue: "",
+        isLoadingData: false
     };
 
     renderSuggestion = () => {
@@ -28,6 +29,30 @@ export class SearchBar extends Component {
         ));
     };
 
+    renderButton() {
+        if (!this.state.isLoadingData) {
+            return (
+                <Button
+                    variant="danger"
+                    onClick={() => {
+                        this.setState({
+                            suggestion: [],
+                            formValue: ""
+                        });
+                    }}
+                >
+                    Close Suggestion
+                </Button>
+            );
+        } else if (this.state.isLoadingData) {
+            return (
+                <Button>
+                    <Spinner animation="border" as="span" size="sm" />
+                </Button>
+            );
+        }
+    }
+
     handleInputChange = async event => {
         this.setState({ formValue: event.target.value });
         let formValue = event.target.value;
@@ -38,13 +63,15 @@ export class SearchBar extends Component {
         //THIS IS LIMIT API CALL SOLUTION,
         //Only fetch data if form value is 3 character
         if (formValue.length === 3) {
+            this.setState({ isLoadingData: true });
             const res = await axios.get("/characters", {
                 params: { nameStartsWith: event.target.value, limit: 50 }
             });
             this.setState({
                 baseSugestion: res.data.data.results,
                 totalSuggestions: res.data.data.total,
-                suggestion: res.data.data.results
+                suggestion: res.data.data.results,
+                isLoadingData: false
             });
         } else if (formValue.length > 3) {
             let newSuggestion = this.state.baseSugestion.filter(data =>
@@ -72,19 +99,7 @@ export class SearchBar extends Component {
                         value={this.state.formValue}
                         onChange={this.handleInputChange}
                     />
-                    <InputGroup.Append>
-                        <Button
-                            variant="danger"
-                            onClick={() => {
-                                this.setState({
-                                    suggestion: [],
-                                    formValue: ""
-                                });
-                            }}
-                        >
-                            Close Suggestion
-                        </Button>
-                    </InputGroup.Append>
+                    <InputGroup.Append>{this.renderButton()}</InputGroup.Append>
                 </InputGroup>
 
                 <div className="" style={{ textAlign: "left" }}>

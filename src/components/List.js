@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Spinner } from "react-bootstrap";
 
 export class List extends Component {
     renderList = () => {
@@ -29,13 +30,18 @@ export class List extends Component {
                     </div>
                 );
             });
+        } else {
+            return <Spinner animation="grow" variant="primary" />;
         }
     };
 
     render() {
         return (
             <div className="mb-5">
-                <h4>{this.props.name}</h4>
+                <h4>
+                    Appears in {this.props.dataToRendered.total}{" "}
+                    {this.props.name}
+                </h4>
                 {this.renderList()}
             </div>
         );
