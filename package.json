@@ -2,7 +2,7 @@
     "name": "marvel-heros",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://minh1609.github.io/marvell-hero",
+    "homepage": "https://minh1609.github.io/marvell-hero/",
     "dependencies": {
         "axios": "^0.18.1",
         "gh-pages": "^2.0.1",
