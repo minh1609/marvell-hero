@@ -45,7 +45,7 @@ export class HeroPage extends Component {
                     <div>{hero.description}</div>
 
                     <h2>Appearance</h2>
-                    <Accordion defaultActiveKey="0" className="my-3">
+                    <Accordion className="my-3">
                         <Card>
                             <Card.Header>
                                 <Accordion.Toggle
