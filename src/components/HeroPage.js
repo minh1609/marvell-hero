@@ -4,21 +4,27 @@ import { Accordion, Card, Button } from "react-bootstrap";
 
 import { getHero } from "../actions";
 import List from "./List";
+import axios from "axios";
 
 export class HeroPage extends Component {
     state = {
-        comics: {}
+        details: {}
     };
 
     componentDidMount = async () => {
         this.props.getHero(this.props.match.params.id);
+        if (this.props.hero) {
+            const res = await axios.get(this.props.hero.urls[0].url);
+            console.log(res.data);
+            console.log(this.props.hero);
+        }
     };
 
-    componentDidUpdate() {
+    componentDidUpdate = () => {
         if (!this.props.hero) {
             this.props.getHero(this.props.match.params.id);
         }
-    }
+    };
 
     render() {
         if (this.props.hero) {
