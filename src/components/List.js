@@ -15,7 +15,7 @@ const List = (props) => {
             setData(res.data.data);
         };
         fetchData();
-    });
+    }, []);
 
     const renderList = () => {
         if (data.results) {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Alert, Button, Spinner } from "react-bootstrap";
+import { Row, Button, Spinner } from "react-bootstrap";
 
 import { getHeros } from "actions/index";
 import HeroImageBox from "./HeroImageBox";
@@ -13,10 +13,10 @@ class Home extends Component {
     renderNumber = () => {
         if (this.props.heros) {
             return (
-                <Alert variant="primary">
+                <div variant="primary" className="neumorphism-1 py-3">
                     {this.props.heros.length} of total{" "}
                     {this.props.totalNumberOfHero}
-                </Alert>
+                </div>
             );
         }
     };

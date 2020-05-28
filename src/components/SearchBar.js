@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { InputGroup, FormControl, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import "./SearchBar.scss";
+
 import axios from "../api";
 //TODO: add redux to this component, add action
 export class SearchBar extends Component {
@@ -10,11 +12,11 @@ export class SearchBar extends Component {
         baseSugestion: [], //only change when fetch new data
         suggestion: [], //change when fetch new data or filter from baseSugestion
         formValue: "",
-        isLoadingData: false
+        isLoadingData: false,
     };
 
     renderSuggestion = () => {
-        return this.state.suggestion.map(hero => (
+        return this.state.suggestion.map((hero) => (
             <Link
                 onClick={() => {
                     this.setState({ suggestion: [], formValue: "" });
@@ -30,30 +32,34 @@ export class SearchBar extends Component {
     };
 
     renderButton() {
-        if (!this.state.isLoadingData) {
+        if (!this.state.isLoadingData && this.state.suggestion.length > 0) {
             return (
-                <Button
-                    variant="danger"
+                <button
                     onClick={() => {
                         this.setState({
                             suggestion: [],
-                            formValue: ""
+                            formValue: "",
                         });
                     }}
                 >
-                    Close Suggestion
-                </Button>
+                    close suggestion
+                </button>
             );
-        } else if (this.state.isLoadingData) {
+        } else if (
+            this.state.isLoadingData &&
+            this.state.formValue.length > 0
+        ) {
             return (
-                <Button>
+                <button>
                     <Spinner animation="border" as="span" size="sm" />
-                </Button>
+                </button>
             );
+        } else {
+            return null;
         }
     }
 
-    handleInputChange = async event => {
+    handleInputChange = async (event) => {
         this.setState({ formValue: event.target.value });
         let formValue = event.target.value;
 
@@ -65,16 +71,16 @@ export class SearchBar extends Component {
         if (formValue.length === 3) {
             this.setState({ isLoadingData: true });
             const res = await axios.get("/characters", {
-                params: { nameStartsWith: event.target.value, limit: 50 }
+                params: { nameStartsWith: event.target.value, limit: 50 },
             });
             this.setState({
                 baseSugestion: res.data.data.results,
                 totalSuggestions: res.data.data.total,
                 suggestion: res.data.data.results,
-                isLoadingData: false
+                isLoadingData: false,
             });
         } else if (formValue.length > 3) {
-            let newSuggestion = this.state.baseSugestion.filter(data =>
+            let newSuggestion = this.state.baseSugestion.filter((data) =>
                 data.name.toLowerCase().includes(formValue.toLowerCase())
             );
 
@@ -91,17 +97,16 @@ export class SearchBar extends Component {
     render() {
         return (
             <div className="mb-5">
-                <InputGroup>
-                    <FormControl
-                        placeholder="Find Your favourite Hero, enter more than 3 character"
-                        aria-describedby="basic-addon2"
-                        autoComplete="off"
-                        value={this.state.formValue}
-                        onChange={this.handleInputChange}
-                    />
-                    <InputGroup.Append>{this.renderButton()}</InputGroup.Append>
-                </InputGroup>
+                <input
+                    placeholder="Enter more than 3 characters to search"
+                    aria-describedby="basic-addon2"
+                    autoComplete="off"
+                    value={this.state.formValue}
+                    onChange={this.handleInputChange}
+                    className="mb-3"
+                />
 
+                {this.renderButton()}
                 <div className="" style={{ textAlign: "left" }}>
                     {this.renderSuggestion()}
                 </div>
