@@ -30,8 +30,9 @@ class Home extends Component {
                 <Button
                     variant="light"
                     onClick={() => this.props.getHeros(this.props.heros.length)}
+                    className="mb-5"
                 >
-                    Get More ...{" "}
+                    Load more{" "}
                 </Button>
             );
         }
@@ -39,7 +40,7 @@ class Home extends Component {
 
     renderHeroList = () => {
         if (this.props.heros) {
-            return this.props.heros.map(hero => (
+            return this.props.heros.map((hero) => (
                 <HeroImageBox hero={hero} key={hero.id} />
             ));
         } else {
@@ -58,14 +59,11 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     heros: Object.values(state.heros),
-    totalNumberOfHero: state.totalNumberOfHero
+    totalNumberOfHero: state.totalNumberOfHero,
 });
 
 const mapDispatchToProps = { getHeros };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

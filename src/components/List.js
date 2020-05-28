@@ -1,23 +1,25 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 
 import axios from "../api";
 import "./List.css";
 
-export class List extends Component {
-    state = {
-        data: {}
-    };
-    componentDidMount = async () => {
-        let res = await axios.get(
-            `/characters/${this.props.heroId}/${this.props.typeOfList}`
-        );
-        this.setState({ data: res.data.data });
-    };
+const List = (props) => {
+    const [data, setData] = useState({});
 
-    renderList = () => {
-        if (this.state.data.results) {
-            return this.state.data.results.map(e => {
+    useEffect(() => {
+        const fetchData = async () => {
+            let res = await axios.get(
+                `/characters/${props.heroId}/${props.typeOfList}`
+            );
+            setData(res.data.data);
+        };
+        fetchData();
+    });
+
+    const renderList = () => {
+        if (data.results) {
+            return data.results.map((e) => {
                 return (
                     <div
                         className="media mb-2"
@@ -48,22 +50,20 @@ export class List extends Component {
         }
     };
 
-    render() {
-        return (
-            <div className="mb-5">
-                <h5>
-                    Appear in {this.state.data.total} {this.props.typeOfList}
-                </h5>
+    return (
+        <div className="mb-5">
+            <h5>
+                Appear in {data.total} {props.typeOfList}
+            </h5>
 
-                <div className="list">{this.renderList()}</div>
-            </div>
-        );
-    }
-}
-
-List.defaultProps = {
-    heroId: 1009144,
-    typeOfList: "comics"
+            <div className="list">{renderList()}</div>
+        </div>
+    );
 };
+
+// List.defaultProps = {
+//     heroId: 1009144,
+//     typeOfList: "comics",
+// };
 
 export default List;

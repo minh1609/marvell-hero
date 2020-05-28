@@ -10,3 +10,25 @@ h1 {
     font-family: Avenger;
     src: url(./font.ttf);
 }
+
+body {
+    background: #dde1e7;
+}
+
+a {
+    text-decoration: none;
+}
+
+.neumorphism-1 {
+    background: #dde1e7;
+    border-radius: 5px;
+    box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945);
+    animation-duration: 3s;
+    transition: 0.4s;
+}
+
+.hover-button:hover {
+    box-shadow: inset -3px -3px 7px #ffffffb0,
+        inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+    background: #dde1e7;
+}
