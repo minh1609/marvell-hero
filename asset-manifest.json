@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/marvell-hero/static/css/main.077d783b.chunk.css",
-    "main.js": "/marvell-hero/static/js/main.7e1f4805.chunk.js",
-    "main.js.map": "/marvell-hero/static/js/main.7e1f4805.chunk.js.map",
+    "main.css": "/marvell-hero/static/css/main.67fdf1be.chunk.css",
+    "main.js": "/marvell-hero/static/js/main.6baa7801.chunk.js",
+    "main.js.map": "/marvell-hero/static/js/main.6baa7801.chunk.js.map",
     "runtime~main.js": "/marvell-hero/static/js/runtime~main.1b469d40.js",
     "runtime~main.js.map": "/marvell-hero/static/js/runtime~main.1b469d40.js.map",
-    "static/js/2.bf00ca91.chunk.js": "/marvell-hero/static/js/2.bf00ca91.chunk.js",
-    "static/js/2.bf00ca91.chunk.js.map": "/marvell-hero/static/js/2.bf00ca91.chunk.js.map",
+    "static/js/2.a6e0cf8d.chunk.js": "/marvell-hero/static/js/2.a6e0cf8d.chunk.js",
+    "static/js/2.a6e0cf8d.chunk.js.map": "/marvell-hero/static/js/2.a6e0cf8d.chunk.js.map",
     "index.html": "/marvell-hero/index.html",
-    "precache-manifest.609567e2c2d9f4750069b05deca4c477.js": "/marvell-hero/precache-manifest.609567e2c2d9f4750069b05deca4c477.js",
+    "precache-manifest.d371980280ee8b0094a0b484d6bdbe9f.js": "/marvell-hero/precache-manifest.d371980280ee8b0094a0b484d6bdbe9f.js",
     "service-worker.js": "/marvell-hero/service-worker.js",
-    "static/css/main.077d783b.chunk.css.map": "/marvell-hero/static/css/main.077d783b.chunk.css.map",
+    "static/css/main.67fdf1be.chunk.css.map": "/marvell-hero/static/css/main.67fdf1be.chunk.css.map",
     "static/media/App.css": "/marvell-hero/static/media/font.9d8f47e6.ttf"
   }
 }
