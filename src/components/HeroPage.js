@@ -49,7 +49,7 @@ export class HeroPage extends Component {
 
                     <div className="m-3">{hero.description}</div>
 
-                    <h2>Appearance</h2>
+                    <h3>Appearance</h3>
                     <Accordion
                         className="my-3 neumorphism-1"
                         defaultActiveKey="0"

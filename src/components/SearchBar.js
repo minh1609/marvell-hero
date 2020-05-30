@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InputGroup, FormControl, Button, Spinner } from "react-bootstrap";
+import { Alert, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import "./SearchBar.scss";
@@ -54,8 +54,26 @@ export class SearchBar extends Component {
                     <Spinner animation="border" as="span" size="sm" />
                 </button>
             );
+        } else if (
+            this.state.formValue.length >= 3 &&
+            this.state.suggestion.length === 0
+        ) {
+            return <p>{"No result for " + this.state.formValue}</p>;
         } else {
             return null;
+        }
+    }
+
+    renderInputWarning() {
+        if (
+            this.state.formValue.length >= 1 &&
+            this.state.formValue.length < 3
+        ) {
+            return (
+                <Alert variant="danger">{`Enter ${
+                    3 - this.state.formValue.length
+                } more characters`}</Alert>
+            );
         }
     }
 
@@ -98,18 +116,19 @@ export class SearchBar extends Component {
         return (
             <div className="mb-5">
                 <input
-                    placeholder="Enter more than 3 characters to search"
+                    placeholder="Search for ..."
                     aria-describedby="basic-addon2"
                     autoComplete="off"
                     value={this.state.formValue}
                     onChange={this.handleInputChange}
                     className="mb-3"
                 />
+                {this.renderInputWarning()}
 
-                {this.renderButton()}
                 <div className="" style={{ textAlign: "left" }}>
                     {this.renderSuggestion()}
                 </div>
+                {this.renderButton()}
             </div>
         );
     }
