@@ -8,7 +8,7 @@ import axios from "axios";
 
 export class HeroPage extends Component {
     state = {
-        details: {}
+        details: {},
     };
 
     componentDidMount = async () => {
@@ -30,8 +30,13 @@ export class HeroPage extends Component {
         if (this.props.hero) {
             let hero = this.props.hero;
             return (
-                <div className="mb-5">
-                    <h1>{hero.name}</h1>
+                <div className="mb-5" style={{ color: "grey" }}>
+                    <div
+                        className="sticky-top p-2"
+                        style={{ backgroundColor: "#dde1e7" }}
+                    >
+                        <h2>{hero.name}</h2>
+                    </div>
                     <img
                         alt="hero"
                         src={
@@ -39,25 +44,24 @@ export class HeroPage extends Component {
                             "/detail." +
                             hero.thumbnail.extension
                         }
-                        className="my-3"
+                        className="my-3 neumorphism-1"
                     />
 
-                    <div>{hero.description}</div>
+                    <div className="m-3">{hero.description}</div>
 
                     <h2>Appearance</h2>
-                    <Accordion className="my-3">
+                    <Accordion
+                        className="my-3 neumorphism-1"
+                        defaultActiveKey="0"
+                    >
                         <Card>
                             <Card.Header>
-                                <Accordion.Toggle
-                                    as={Button}
-                                    variant="dark"
-                                    eventKey="0"
-                                >
+                                <Accordion.Toggle eventKey="0">
                                     Comics
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
-                                <Card.Body>
+                                <Card.Body className="neumorphism-2">
                                     <List
                                         typeOfList="comics"
                                         heroId={this.props.match.params.id}
@@ -67,16 +71,12 @@ export class HeroPage extends Component {
                         </Card>
                         <Card>
                             <Card.Header>
-                                <Accordion.Toggle
-                                    as={Button}
-                                    variant="dark"
-                                    eventKey="1"
-                                >
+                                <Accordion.Toggle eventKey="1">
                                     Events
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="1">
-                                <Card.Body>
+                                <Card.Body className="neumorphism-2">
                                     <List
                                         heroId={this.props.match.params.id}
                                         typeOfList="events"
@@ -86,16 +86,12 @@ export class HeroPage extends Component {
                         </Card>
                         <Card>
                             <Card.Header>
-                                <Accordion.Toggle
-                                    as={Button}
-                                    variant="dark"
-                                    eventKey="2"
-                                >
+                                <Accordion.Toggle eventKey="2">
                                     Series
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="2">
-                                <Card.Body>
+                                <Card.Body className="neumorphism-2">
                                     <List
                                         heroId={this.props.match.params.id}
                                         typeOfList="series"
@@ -113,12 +109,9 @@ export class HeroPage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    hero: state.heros[ownProps.match.params.id]
+    hero: state.heros[ownProps.match.params.id],
 });
 
 const mapDispatchToProps = { getHero };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HeroPage);
+export default connect(mapStateToProps, mapDispatchToProps)(HeroPage);

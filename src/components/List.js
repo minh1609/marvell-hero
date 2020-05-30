@@ -17,6 +17,7 @@ const List = (props) => {
         fetchData();
     }, []);
 
+    //MAP
     const renderList = () => {
         if (data.results) {
             return data.results.map((e) => {

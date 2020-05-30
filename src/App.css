@@ -2,6 +2,10 @@ h1 {
     font-family: Avenger;
 }
 
+h2 {
+    font-family: Avenger;
+}
+
 .font {
     font-family: Avenger;
 }
@@ -26,9 +30,9 @@ a {
     animation-duration: 3s;
     transition: 0.4s;
 }
-
-.hover-button:hover {
+.neumorphism-2 {
+    background: #dde1e7;
+    border-radius: 5px;
     box-shadow: inset -3px -3px 7px #ffffffb0,
         inset 3px 3px 5px rgba(94, 104, 121, 0.692);
-    background: #dde1e7;
 }

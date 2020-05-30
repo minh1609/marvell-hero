@@ -30,7 +30,7 @@ class Home extends Component {
                 <Button
                     variant="light"
                     onClick={() => this.props.getHeros(this.props.heros.length)}
-                    className="mb-5"
+                    className="my-4"
                 >
                     Load more{" "}
                 </Button>

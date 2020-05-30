@@ -24,9 +24,7 @@ const HeroImageBox = (props) => {
                 </div>
 
                 <br />
-                <div className="my-2 neumorphism-1 hover-button">
-                    {hero.name}
-                </div>
+                <button className="my-2 neumorphism-1 p-1 ">{hero.name}</button>
             </Link>
         </Col>
     );
